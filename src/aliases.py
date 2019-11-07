@@ -6,3 +6,13 @@ to_drop = [
     "Vehicle Type",
 ]
 
+not_to_encoded = [
+    "Distance (KM)",
+    "Temperature",
+    "Pickup Lat",
+    "Pickup Long",
+    "Destination Lat",
+    "Destination Long",
+    "Order No",
+]
+
