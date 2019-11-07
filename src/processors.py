@@ -28,5 +28,16 @@ class MultiColumnLabelEncoder:
         return self.fit(X, y).transform(X)
 
 
-# def train_with_xgb()
+class Preprocessor:
+    def __init__(self):
+        return self
+
+    def separate(data):
+        target = train["Time from Pickup to Arrival"]
+        data.drop("Time from Pickup to Arrival", axis=1, inplace=True)
+
+        return data, target
+
+    def remove_Na_variable(data):
+        return train.drop(["Precipitation in millimeters"], axis=1, inplace=True)
 
