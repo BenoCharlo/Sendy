@@ -1,5 +1,12 @@
+from functools import reduce
 from sklearn.preprocessing import LabelEncoder
 from sklearn.pipeline import Pipeline
+
+import aliases
+
+
+def compose(*functions):
+    return reduce(lambda f, g: lambda x: f(g(x)), reversed(functions), lambda x: x)
 
 
 class MultiColumnLabelEncoder:
@@ -39,5 +46,24 @@ class Preprocessor:
         return data, target
 
     def remove_Na_variable(data):
-        return train.drop(["Precipitation in millimeters"], axis=1, inplace=True)
+        return data.drop(["Precipitation in millimeters"], axis=1, inplace=True)
 
+    def drop_variables(data):
+        return data.drop(to_drop, axis=1, inplace=True)
+
+    def ohe_matrix(data):
+        data_categorical = data.drop(not_to_encoded, axis=1)
+        data_categorical = MultiColumnLabelEncoder().fit_transform(data_categorical)
+        data = pd.concat(
+            [data_categorical, data.filter(not_to_encoded, axis=1)], axis=1
+        )
+
+    def preprocess_data(data):
+
+        preprocessed_data = compose(
+            lambda data: remove_Na_variables(data),
+            lambda data: drop_variables(data),
+            lambda data: ohe_matrix(data),
+        )(data)
+
+    return preprocess_data
