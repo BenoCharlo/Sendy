@@ -12,11 +12,11 @@ class XGB_Model:
             data = xgb.DMatrix(data.drop("Order No", axis=1), label=target)
         return data
 
-    def train_xgb(data, params, num_boost_round):
+    def train_xgb(self, data, params, num_boost_round):
         bst = xgb.train(params, dtrain, num_boost_round)
         return bst
 
-    def train_xgb_cv(data, params, nfold, num_boost_round):
+    def train_xgb_cv(dself, ata, params, nfold, num_boost_round):
 
         cv_rmse_xgb = xgb.cv(
             params,
