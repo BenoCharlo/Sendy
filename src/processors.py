@@ -1,12 +1,9 @@
-from functools import reduce
+import pandas as pd
 from sklearn.preprocessing import LabelEncoder
-from sklearn.pipeline import Pipeline
 
-import aliases
+# from sklearn.pipeline import Pipeline
 
-
-def compose(*functions):
-    return reduce(lambda f, g: lambda x: f(g(x)), reversed(functions), lambda x: x)
+from src import aliases
 
 
 class MultiColumnLabelEncoder:
@@ -36,34 +33,32 @@ class MultiColumnLabelEncoder:
 
 
 class Preprocessor:
-    def __init__(self):
-        return self
+    def __init__(self, data=None):
+        return None
 
-    def separate(data):
-        target = train["Time from Pickup to Arrival"]
-        data.drop("Time from Pickup to Arrival", axis=1, inplace=True)
+    def separate(self, data):
+        target = data["Time from Pickup to Arrival"]
+        data.drop("Time from Pickup to Arrival", axis=1)
 
         return data, target
 
-    def remove_Na_variable(data):
-        return data.drop(["Precipitation in millimeters"], axis=1, inplace=True)
+    def remove_na_variable(self, data):
+        return data.drop(["Precipitation in millimeters"], axis=1)
 
-    def drop_variables(data):
-        return data.drop(to_drop, axis=1, inplace=True)
+    def drop_variables(self, data):
+        return data.drop(aliases.to_drop, axis=1)
 
-    def ohe_matrix(data):
-        data_categorical = data.drop(not_to_encoded, axis=1)
+    def le_matrix(self, data):
+        data_categorical = data.drop(aliases.not_to_encoded, axis=1)
         data_categorical = MultiColumnLabelEncoder().fit_transform(data_categorical)
         data = pd.concat(
-            [data_categorical, data.filter(not_to_encoded, axis=1)], axis=1
+            [data_categorical, data.filter(aliases.not_to_encoded, axis=1)], axis=1
         )
+        return data
 
-    def preprocess_data(data):
+    def preprocess_data(self, data):
 
-        preprocessed_data = compose(
-            lambda data: remove_Na_variables(data),
-            lambda data: drop_variables(data),
-            lambda data: ohe_matrix(data),
-        )(data)
-
-    return preprocess_data
+        preprocessed_data = self.le_matrix(
+            self.drop_variables(self.remove_na_variable(data))
+        )
+        return preprocessed_data
