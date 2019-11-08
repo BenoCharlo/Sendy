@@ -3,15 +3,14 @@ import xgboost as xgb
 
 class XGB_Model:
     def __init__(self):
-        return self
+        return None
 
-    def prepare_train(data, target):
-        dtrain = xgb.DMatrix(data.drop("Order No", axis=1), label=target)
-        return dtrain
-
-    def prepare_test(data):
-        dtest = xgb.DMatrix(data.drop("Order No"), axis=1)
-        return dtest
+    def prepare_data(self, data, target=None):
+        if target is None:
+            data = xgb.DMatrix(data.drop("Order No", axis=1), label=target)
+        else:
+            data = xgb.DMatrix(data.drop("Order No", axis=1), label=target)
+        return data
 
     def train_xgb(data, params, num_boost_round):
         bst = xgb.train(params, dtrain, num_boost_round)
