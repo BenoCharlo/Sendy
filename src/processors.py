@@ -45,8 +45,19 @@ class Preprocessor:
     def remove_na_variable(self, data):
         return data.drop(["Precipitation in millimeters"], axis=1)
 
-    def drop_variables(self, data):
-        return data.drop(aliases.to_drop, axis=1)
+    def drop_variables(self, data, train_type=True):
+        if train_type:
+            data = data.drop(aliases.to_drop, axis=1)
+        else:
+            to_drop = aliases.to_drop
+            to_drop = [
+                variable
+                for variable in to_drop
+                if variable != "Arrival at Destination - Time"
+            ]
+            data = data.drop(to_drop, axis=1)
+
+        return data
 
     def le_matrix(self, data):
         data_categorical = data.drop(aliases.not_to_encoded, axis=1)
@@ -56,9 +67,9 @@ class Preprocessor:
         )
         return data
 
-    def preprocess_data(self, data):
+    def preprocess_data(self, data, train_type):
 
         preprocessed_data = self.le_matrix(
-            self.drop_variables(self.remove_na_variable(data))
+            self.drop_variables(self.remove_na_variable(data), train_type)
         )
         return preprocessed_data
