@@ -13,14 +13,14 @@ class XGB_Model:
         return data
 
     def train_xgb(self, data, params, num_boost_round):
-        bst = xgb.train(params, dtrain, num_boost_round)
+        bst = xgb.train(params, data, num_boost_round)
         return bst
 
-    def train_xgb_cv(dself, ata, params, nfold, num_boost_round):
+    def train_xgb_cv(self, data, params, nfold, num_boost_round):
 
         cv_rmse_xgb = xgb.cv(
             params,
-            dtrain,
+            data,
             num_boost_round=num_boost_round,
             nfold=nfold,
             stratified=False,
