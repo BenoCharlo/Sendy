@@ -1,7 +1,7 @@
 import xgboost as xgb
 import lightgbm as lgb
 
-import aliases
+import src.aliases as aliases
 
 
 class XGB_Model:
