@@ -95,9 +95,9 @@ class Preprocessor:
 
         return train_data.drop("is_train", axis=1), test_data.drop("is_train", axis=1)
 
-    def preprocess_data(self, data, train_type):
+    def preprocess_data(self, data, is_train):
 
         preprocessed_data = self.le_matrix(
-            self.drop_variables(self.remove_na_variable(data), train_type)
+            self.drop_variables(self.remove_na_variable(data), is_train)
         )
         return preprocessed_data
