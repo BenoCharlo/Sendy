@@ -3,7 +3,7 @@ import lightgbm as lgb
 
 # from sklearn
 
-import src.aliases as aliases
+from src import aliases
 
 
 class XGB_Model:

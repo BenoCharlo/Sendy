@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 # from sklearn.pipeline import Pipeline
 
@@ -62,6 +62,17 @@ class Preprocessor:
     def le_matrix(self, data):
         data_categorical = data.drop(aliases.not_to_encoded, axis=1)
         data_categorical = MultiColumnLabelEncoder().fit_transform(data_categorical)
+        data = pd.concat(
+            [data_categorical, data.filter(aliases.not_to_encoded, axis=1)], axis=1
+        )
+        return data
+
+    def ohe_matrix(self, data):
+        encoder = OneHotEncoder(handle_unknown="ignore")
+
+        data_categorical = data.filter(aliases.to_categorical, axis=1)
+        data_categorical = encoder.fit_transform(data_categorical)
+        data_categorical = data_categorical.toarray()
         data = pd.concat(
             [data_categorical, data.filter(aliases.not_to_encoded, axis=1)], axis=1
         )

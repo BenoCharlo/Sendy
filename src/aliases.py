@@ -16,4 +16,18 @@ not_to_encoded = [
     "Order No",
 ]
 
+to_categorical = [
+    "User Id",
+    "Personal or Business",
+    "Rider Id",
+    "Placement - Day of Month",
+    "Placement - Weekday (Mo = 1)",
+    "Confirmation - Day of Month",
+    "Confirmation - Weekday (Mo = 1)",
+    "Arrival at Pickup - Day of Month",
+    "Arrival at Pickup - Weekday (Mo = 1)",
+    "Pickup - Day of Month",
+    "Pickup - Weekday (Mo = 1)",
+]
+
 order_index = ["Order No"]
