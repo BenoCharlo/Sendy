@@ -59,6 +59,16 @@ class Preprocessor:
 
         return data
 
+    def join_train_test(self, train_data, test_data):
+        test_cols = list(test_data.columns)
+        train_data = train_data[test_cols]
+
+        data = pd.concat([train_data, test_data], axis=0)
+
+        data["is_train"] = [1] * train_data.shape[0] + [0] * test_data.shape[0]
+
+        return data
+
     def le_matrix(self, data):
         data_categorical = data.drop(aliases.not_to_encoded, axis=1)
         data_categorical = MultiColumnLabelEncoder().fit_transform(data_categorical)
@@ -70,13 +80,20 @@ class Preprocessor:
     def ohe_matrix(self, data):
         encoder = OneHotEncoder(handle_unknown="ignore")
 
-        data_categorical = data.filter(aliases.to_categorical, axis=1)
-        data_categorical = encoder.fit_transform(data_categorical)
-        data_categorical = data_categorical.toarray()
-        data = pd.concat(
-            [data_categorical, data.filter(aliases.not_to_encoded, axis=1)], axis=1
+        data_ohe = encoder.fit_transform(data[aliases.to_categorical])
+        data_categorical = pd.concat(
+            [data_ohe.to_array(), data.drop(aliases.to_categorical, axis=1)], axis=1
         )
+
         return data
+
+    def separate(self, data):
+        assert "is_train" in list(data.columns)
+
+        train_data = data.loc[data["is_train"] == 1]
+        test_data = data.loc[data["is_train"] == 0]
+
+        return train_data.drop("is_train", axis=1), test_data.drop("is_train", axis=1)
 
     def preprocess_data(self, data, train_type):
 
