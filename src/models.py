@@ -1,6 +1,8 @@
 import xgboost as xgb
 import lightgbm as lgb
 
+# from sklearn
+
 import src.aliases as aliases
 
 
@@ -68,3 +70,10 @@ class LGB_Model:
 
     def predict_lgb(bst, data):
         return bst.predict(data)
+
+
+# class STACKING_Model():
+#     def __init__(self):
+#         return None
+
+#     def get_kfold():
