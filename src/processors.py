@@ -92,7 +92,7 @@ class Preprocessor:
 
         return data
 
-    def separate(self, data):
+    def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
 
         train_data = data.loc[data["is_train"] == 1]
