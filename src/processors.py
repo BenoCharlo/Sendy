@@ -95,7 +95,7 @@ class Preprocessor:
 
         data = pd.DataFrame(data_categorical, columns=cols)
 
-        return data
+        return data.drop(aliases.not_to_encoded, axis=1)
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
