@@ -85,7 +85,7 @@ class Preprocessor:
 
         data_ohe = encoder.fit_transform(data[aliases.to_categorical])
         data_categorical = pd.concat(
-            [data_ohe.toarray(), data.drop(aliases.to_categorical, axis=1)], axis=1
+            [data_ohe.toarray(), data.drop(aliases.to_categorical), axis=1], axis=1
         )
 
         return data
