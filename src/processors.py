@@ -36,7 +36,7 @@ class Preprocessor:
     def __init__(self, data=None):
         return None
 
-    def separate(self, data):
+    def separate_train_target(self, data):
         target = data["Time from Pickup to Arrival"]
         data.drop("Time from Pickup to Arrival", axis=1)
 
