@@ -1,8 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-# from sklearn.pipeline import Pipeline
-
 from src import aliases
 
 
