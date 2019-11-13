@@ -44,8 +44,11 @@ class LGB_Model:
         return None
 
     def prepare_data(self, data, target=None):
+        if aliases.order_index in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         if target is None:
-            data = lgb.Dataset(data.drop(aliases.order_index, axis=1), label=target)
+            data = lgb.Dataset(data, label=target)
         else:
             data = lgb.Dataset(data.drop(aliases.order_index, axis=1), label=target)
         return data
