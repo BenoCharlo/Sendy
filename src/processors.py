@@ -69,6 +69,11 @@ class Preprocessor:
 
         return data
 
+    def preprocess_data(self, data, is_train):
+
+        preprocessed_data = self.drop_variables(self.remove_na_variable(data), is_train)
+        return preprocessed_data
+
     def le_matrix(self, data):
         data_categorical = data.drop(aliases.not_to_encoded, axis=1)
         data_categorical = MultiColumnLabelEncoder().fit_transform(data_categorical)
@@ -95,9 +100,3 @@ class Preprocessor:
 
         return train_data.drop("is_train", axis=1), test_data.drop("is_train", axis=1)
 
-    def preprocess_data(self, data, is_train):
-
-        preprocessed_data = self.le_matrix(
-            self.drop_variables(self.remove_na_variable(data), is_train)
-        )
-        return preprocessed_data
