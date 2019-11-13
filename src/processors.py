@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
@@ -84,9 +85,15 @@ class Preprocessor:
         encoder = OneHotEncoder(handle_unknown="ignore")
 
         data_ohe = encoder.fit_transform(data[aliases.to_categorical])
-        data_categorical = pd.concat(
-            [data_ohe.toarray(), data.drop(aliases.to_categorical), axis=1], axis=1
+        data_categorical = np.concatenate(
+            [data_ohe.toarray(), data.drop(aliases.to_categorical, axis=1)], axis=1
         )
+
+        cols = list(encoder.get_feature_names()) + list(
+            data.drop(aliases.to_categorical, axis=1).columns
+        )
+
+        data = pd.DataFrame(data_categorical, columns=cols)
 
         return data
 
