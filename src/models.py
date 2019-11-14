@@ -11,10 +11,13 @@ class XGB_Model:
         return None
 
     def prepare_data(self, data, target=None):
+        if aliases.order_index in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         if target is None:
-            data = xgb.DMatrix(data.drop(aliases.order_index, axis=1), label=target)
+            data = xgb.DMatrix(data, label=target)
         else:
-            data = xgb.DMatrix(data.drop(aliases.order_index, axis=1), label=target)
+            data = xgb.DMatrix(data, label=target)
         return data
 
     def train_xgb(self, data, params, num_boost_round):
