@@ -50,7 +50,7 @@ class LGB_Model:
         if target is None:
             data = lgb.Dataset(data, label=target)
         else:
-            data = lgb.Dataset(data.drop(aliases.order_index, axis=1), label=target)
+            data = lgb.Dataset(data, label=target)
         return data
 
     def train_lgb(self, data, params, num_boost_round):
