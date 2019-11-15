@@ -44,8 +44,8 @@ class Preprocessor:
     def remove_na_variable(self, data):
         return data.drop(["Precipitation in millimeters"], axis=1)
 
-    def drop_variables(self, data, train_type=True):
-        if train_type:
+    def drop_variables(self, data, is_train=True):
+        if is_train:
             data = data.drop(aliases.to_drop, axis=1)
         else:
             to_drop = aliases.to_drop
