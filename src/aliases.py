@@ -8,6 +8,13 @@ to_drop = [
     "Temperature",
 ]
 
+time_vars = [
+    "Placement - Time",
+    "Confirmation - Time",
+    "Arrival at Pickup - Time",
+    "Pickup - Time",
+]
+
 not_to_encoded = [
     "Distance (KM)",
     "Pickup Lat",
