@@ -9,7 +9,7 @@ class XGB_Model:
         return None
 
     def prepare_data(self, data, target=None):
-        if aliases.order_index in list(data.columns):
+        if aliases.order_index[0] in list(data.columns):
             data.drop(aliases.order_index, axis=1, inplace=True)
 
         if target is None:
@@ -45,7 +45,7 @@ class LGB_Model:
         return None
 
     def prepare_data(self, data, target=None):
-        if aliases.order_index in list(data.columns):
+        if aliases.order_index[0] in list(data.columns):
             data.drop(aliases.order_index, axis=1, inplace=True)
 
         if target is None:
