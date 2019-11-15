@@ -97,7 +97,8 @@ class Preprocessor:
     def preprocess_data(self, data, is_train):
 
         preprocessed_data = self.drop_variables(
-            self.remove_na_variable(self.change_var_type(data)), is_train
+            self.remove_na_variable(self.diff_time(self.change_var_type(data))),
+            is_train,
         )
         return preprocessed_data
 
