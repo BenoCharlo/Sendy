@@ -3,6 +3,7 @@ to_drop = [
     "Arrival at Destination - Time",
     "Confirmation - Time",
     "Arrival at Pickup - Time",
+    "Pickup - Time",
     "Vehicle Type",
     "Temperature",
 ]
