@@ -4,11 +4,11 @@ to_drop = [
     "Confirmation - Time",
     "Arrival at Pickup - Time",
     "Vehicle Type",
+    "Temperature",
 ]
 
 not_to_encoded = [
     "Distance (KM)",
-    "Temperature",
     "Pickup Lat",
     "Pickup Long",
     "Destination Lat",
