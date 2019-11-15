@@ -41,6 +41,18 @@ class Preprocessor:
 
         return data, target
 
+    def change_var_type(self, data):
+        assert set(aliases.to_categorical).issubset(data.columns)
+        assert set(aliases.to_datetime).issubset(data.columns)
+
+        for col in aliases.to_categorical:
+            data[col] = data[col].astype("category")
+
+        for col in aliases.to_datetime:
+            data[col] = pd.to_datetime(data[col])
+
+        return data
+
     def remove_na_variable(self, data):
         return data.drop(["Precipitation in millimeters"], axis=1)
 
