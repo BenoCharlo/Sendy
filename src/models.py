@@ -1,8 +1,6 @@
 import xgboost as xgb
 import lightgbm as lgb
 
-# from sklearn
-
 from src import aliases
 
 
