@@ -8,7 +8,7 @@ to_drop = [
     "Temperature",
 ]
 
-time_vars = [
+to_datetime = [
     "Placement - Time",
     "Confirmation - Time",
     "Arrival at Pickup - Time",
