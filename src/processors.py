@@ -80,6 +80,20 @@ class Preprocessor:
 
         return data
 
+    def time_elapse(self, date_1, date_2):
+        return (date_2 - date_1).dt.to_seconds().astype("int")
+
+    def diff_time(self, data):
+
+        for i in range(len(aliases.to_datetime) - 1):
+            for j in range(1, len(aliases.to_datetime)):
+                var = "_".join(["diff", str(i), str(j)])
+                data[var] = self.time_elapse(
+                    data[aliases.to_datetime[i]], data[aliases.to_datetime[j]]
+                )
+
+        return data
+
     def preprocess_data(self, data, is_train):
 
         preprocessed_data = self.drop_variables(
