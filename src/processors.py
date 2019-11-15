@@ -42,8 +42,8 @@ class Preprocessor:
         return data, target
 
     def change_var_type(self, data):
-        assert set(aliases.to_categorical).issubset(data.columns)
-        assert set(aliases.to_datetime).issubset(data.columns)
+        assert set(aliases.to_categorical).issubset(list(data.columns))
+        assert set(aliases.to_datetime).issubset(list(data.columns))
 
         for col in aliases.to_categorical:
             data[col] = data[col].astype("category")
