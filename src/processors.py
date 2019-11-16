@@ -94,6 +94,10 @@ class Preprocessor:
 
         return data
 
+    # def is_morning(self, data):
+
+    #     for i in range()
+
     def preprocess_data(self, data, is_train):
 
         preprocessed_data = self.drop_variables(
