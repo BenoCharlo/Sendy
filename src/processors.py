@@ -81,7 +81,7 @@ class Preprocessor:
         return data
 
     def time_elapse(self, date_1, date_2):
-        return (date_2 - date_1).dt.to_seconds().astype("int")
+        return (date_2 - date_1).dt.total_seconds().astype("int")
 
     def diff_time(self, data):
 
