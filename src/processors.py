@@ -86,7 +86,7 @@ class Preprocessor:
     def diff_time(self, data):
 
         for i in range(len(aliases.to_datetime) - 1):
-            for j in range(1, len(aliases.to_datetime)):
+            for j in range(i + 1, len(aliases.to_datetime)):
                 var = "_".join(["diff", str(i), str(j)])
                 data[var] = self.time_elapse(
                     data[aliases.to_datetime[i]], data[aliases.to_datetime[j]]
