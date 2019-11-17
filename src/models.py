@@ -7,7 +7,7 @@ import lightgbm as lgb
 from src import aliases
 
 
-class KFold_Model():
+class KFold_Strategy():
 
     def __init__(self):
         return None
