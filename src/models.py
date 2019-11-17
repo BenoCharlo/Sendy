@@ -7,15 +7,15 @@ import lightgbm as lgb
 from src import aliases
 
 
-class KFold_Strategy():
-
+class KFold_Strategy:
     def __init__(self):
         return None
 
-    def kfold_split(self, data, n_splits)
+    def kfold_split(self, data, n_splits):
         kf = KFold(n_splits=n_splits, random_state=43)
 
         return kf
+
 
 class KNN_Model:
     def __init__(self):
@@ -34,24 +34,23 @@ class KNN_Model:
         return model.predict(data)
 
     def train_knn_cv(self, data, target, kf, n_neighbors):
-        assert kf.get_n_splits>0
+        assert kf.get_n_splits > 0
         y = target.values
 
         fold = 0
-        scores = []       
+        scores = []
         for train_index, test_index in kf.split(X):
             X_train, X_test = data[train_index], data[test_index]
             y_train, y_test = y[train_index], y[test_index]
 
             model = self.train_knn(X_train, y_train, n_neighbors)
-            y_pred = model.predict(X_test)  
+            y_pred = model.predict(X_test)
             print(f"====== Fold {fold} ======")
             print(mean_squared_error(y_test, y_pred))
             scores.append(mean_squared_error(y_test, y_pred))
-            fold=+1
+            fold = +1
 
         return scores
-
 
 
 class XGB_Model:
