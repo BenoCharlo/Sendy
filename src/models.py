@@ -1,3 +1,5 @@
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error
@@ -48,10 +50,25 @@ class KNN_Model:
 
             model = self.train_knn(X_train, y_train, n_neighbors)
             y_pred = model.predict(X_test)
-            print(f"====== Fold {fold} ======")
-            print(mean_squared_error(y_test, y_pred))
-            scores.append(mean_squared_error(y_test, y_pred))
+            # print(f"====== Fold {fold} ======")
+            # print(np.sqrt(mean_squared_error(y_test, y_pred)))
+            scores.append(np.sqrt(mean_squared_error(y_test, y_pred)))
             fold += 1
+
+        return scores
+
+    def tune_knn_cv(self, data, target, kf, max_neigbors):
+
+        knn_scores = []
+        for neighbors in range(2, max_neigbors, 2):
+            knn_scores.append(np.mean(self.train_knn_cv(data, target, kf, neighbors)))
+
+        scores = pd.DataFrame(
+            {
+                "neighbors": [n for n in range(2, max_neigbors, 2)],
+                "rmse_knn": knn_scores,
+            }
+        )
 
         return scores
 
