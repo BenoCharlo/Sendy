@@ -1,4 +1,4 @@
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
