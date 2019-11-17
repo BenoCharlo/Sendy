@@ -60,14 +60,11 @@ class KNN_Model:
     def tune_knn_cv(self, data, target, kf, max_neigbors):
 
         knn_scores = []
-        for neighbors in range(2, max_neigbors, 2):
+        for neighbors in list(np.power(2, [x for x in range(1, max_neigbors)])):
             knn_scores.append(np.mean(self.train_knn_cv(data, target, kf, neighbors)))
 
         scores = pd.DataFrame(
-            {
-                "neighbors": [n for n in range(2, max_neigbors, 2)],
-                "rmse_knn": knn_scores,
-            }
+            {"neighbors": [n for n in range(1, max_neigbors)], "rmse_knn": knn_scores,}
         )
 
         return scores
