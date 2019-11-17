@@ -22,6 +22,9 @@ class KNN_Model:
         return None
 
     def prepare_data(self, data):
+        if aliases.order_index[0] in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         return data.values
 
     def train_knn(self, data, target, n_neighbors):
