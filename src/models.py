@@ -27,7 +27,7 @@ class KNN_Model:
     def train_knn(self, data, target, n_neighbors):
         model = KNeighborsRegressor(n_neighbors)
 
-        model.fit(data, target.values)
+        model.fit(data, target)
         return model
 
     def predict_knn(self, knn_model, data):
