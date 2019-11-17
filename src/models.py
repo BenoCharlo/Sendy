@@ -50,8 +50,6 @@ class KNN_Model:
 
             model = self.train_knn(X_train, y_train, n_neighbors)
             y_pred = model.predict(X_test)
-            # print(f"====== Fold {fold} ======")
-            # print(np.sqrt(mean_squared_error(y_test, y_pred)))
             scores.append(np.sqrt(mean_squared_error(y_test, y_pred)))
             fold += 1
 
