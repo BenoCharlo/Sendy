@@ -39,7 +39,7 @@ class KNN_Model:
         return model.predict(data)
 
     def train_knn_cv(self, data, target, kf, n_neighbors):
-        # assert(0, kf.get_n_splits)
+
         y = target.values
 
         fold = 0
