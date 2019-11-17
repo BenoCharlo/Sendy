@@ -1,10 +1,57 @@
+from sklearn.cross_validation import KFold
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
 
 from src import aliases
 
 
-# class Linear_Model()
+class KFold_Model():
+
+    def __init__(self):
+        return None
+
+    def kfold_split(self, data, n_splits)
+        kf = KFold(n_splits=n_splits, random_state=43)
+
+        return kf
+
+class KNN_Model:
+    def __init__(self):
+        return None
+
+    def prepare_data(self, data):
+        return data.values
+
+    def train_knn(self, data, target, n_neighbors):
+        model = KNeighborsRegressor(n_neighbors)
+
+        model.fit(data, target.values)
+        return model
+
+    def predict_knn(self, knn_model, data):
+        return model.predict(data)
+
+    def train_knn_cv(self, data, target, kf, n_neighbors):
+        assert kf.get_n_splits>0
+        y = target.values
+
+        fold = 0
+        scores = []       
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = data[train_index], data[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+
+            model = self.train_knn(X_train, y_train, n_neighbors)
+            y_pred = model.predict(X_test)  
+            print(f"====== Fold {fold} ======")
+            print(mean_squared_error(y_test, y_pred))
+            scores.append(mean_squared_error(y_test, y_pred))
+            fold=+1
+
+        return scores
+
 
 
 class XGB_Model:
