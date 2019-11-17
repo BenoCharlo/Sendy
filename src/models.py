@@ -34,12 +34,12 @@ class KNN_Model:
         return model.predict(data)
 
     def train_knn_cv(self, data, target, kf, n_neighbors):
-        assert kf.get_n_splits > 0
+        # assert(0, kf.get_n_splits)
         y = target.values
 
         fold = 0
         scores = []
-        for train_index, test_index in kf.split(X):
+        for train_index, test_index in kf.split(data):
             X_train, X_test = data[train_index], data[test_index]
             y_train, y_test = y[train_index], y[test_index]
 
