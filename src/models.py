@@ -51,7 +51,7 @@ class KNN_Model:
             print(f"====== Fold {fold} ======")
             print(mean_squared_error(y_test, y_pred))
             scores.append(mean_squared_error(y_test, y_pred))
-            fold = +1
+            fold += 1
 
         return scores
 
