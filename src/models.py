@@ -5,6 +5,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
+from catboost import CatBoostRegressor, Pool, cv
 
 from src import aliases
 
@@ -140,8 +141,28 @@ class LGB_Model:
         return bst.predict(data)
 
 
-# class STACKING_Model():
-#     def __init__(self):
-#         return None
+class CatBoost_Model:
+    def __init__(self):
+        return None
 
-#     def get_kfold():
+    def train_catboost(self, data, target, params):
+        bst = CatBoostRegressor(
+            params["iterations"],
+            params["learning_rate"],
+            params["depth"],
+            random_seed=42,
+            logging_level="Silent",
+        )
+
+        bst.fit(
+            data, target, plot=False,
+        )
+        return bst
+
+    def train_catboost_cv(self, data, target, params, nb_fold):
+        cv_data = cv(Pool(data, target), params, fold_count=nb_fold, plot=False)
+        return cv_data
+
+    def predict_catboost(self, bst, data):
+        return bst.predict(data)
+
