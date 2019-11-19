@@ -94,14 +94,19 @@ class Preprocessor:
 
         return data
 
-    # def is_morning(self, data):
+    def create_hour_vars(self, data):
+        hour_vars = ["hour_" + var.split("-")[0] for var in aliases.to_datetime]
 
-    #     for i in range()
+        for i, hour_var in enumerate(hour_vars):
+            data[hour_var] = data[aliases.to_datetime[i]].dt.hour
+        return data
 
     def preprocess_data(self, data, is_train):
 
         preprocessed_data = self.drop_variables(
-            self.remove_na_variable(self.diff_time(self.change_var_type(data))),
+            self.remove_na_variable(
+                self.create_hour_vars(self.diff_time(self.change_var_type(data)))
+            ),
             is_train,
         )
         return preprocessed_data
