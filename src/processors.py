@@ -138,6 +138,8 @@ class Preprocessor:
     def poly_features(self, data, n_features):
         """
         Only apply this on joined train and test
+
+        Returns : concatenated data and polynomial features dataset
         """
         assert "is_train" in list(data.columns)
 
