@@ -144,11 +144,11 @@ class Preprocessor:
         poly_data = poly.fit_transform(data)
         poly_data = pd.DataFrame(poly_data)
 
-        poly_data = poly_data.add_prefix('poly_')
+        poly_data = poly_data.add_prefix("poly_")
 
-        data = pd.concat([data, poly_data],axis=1)
+        data = pd.concat([data, poly_data], axis=1)
 
-        rerurn data
+        return data
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
