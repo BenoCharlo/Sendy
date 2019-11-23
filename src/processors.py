@@ -152,9 +152,9 @@ class Preprocessor:
 
         poly_data = poly_data.add_prefix("poly_")
 
-        data = pd.concat([data, poly_data], axis=1, ignore_index=True)
+        joint_data = data.join(poly_data, on=data.index)
 
-        return data
+        return joint_data
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
