@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder, PolynomialFeatures
 
 from src import aliases
 
@@ -134,6 +134,21 @@ class Preprocessor:
         data = pd.DataFrame(data_categorical, columns=cols)
 
         return data.drop(aliases.not_to_encoded, axis=1)
+
+    def poly_features(self, data, n_features):
+        """
+        Only apply this on joined train and test
+        """
+        assert "is_train" in list(data.columns)
+        poly = PolynomialFeatures(n_features)
+        poly_data = poly.fit_transform(data)
+        poly_data = pd.DataFrame(poly_data)
+
+        poly_data = poly_data.add_prefix('poly_')
+
+        data = pd.concat([data, poly_data],axis=1)
+
+        rerurn data
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
