@@ -150,7 +150,7 @@ class Preprocessor:
 
         poly_data = poly_data.add_prefix("poly_")
 
-        data = pd.concat([data, poly_data], axis=1)
+        data = pd.concat([data, poly_data], axis=1, ignore_index=True)
 
         return data
 
