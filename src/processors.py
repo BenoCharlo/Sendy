@@ -140,6 +140,10 @@ class Preprocessor:
         Only apply this on joined train and test
         """
         assert "is_train" in list(data.columns)
+
+        if aliases.order_index[0] in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         poly = PolynomialFeatures(n_features)
         poly_data = poly.fit_transform(data)
         poly_data = pd.DataFrame(poly_data)
