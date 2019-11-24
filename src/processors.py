@@ -151,10 +151,11 @@ class Preprocessor:
         poly_data = pd.DataFrame(poly_data)
 
         poly_data = poly_data.add_prefix("poly_")
+        poly_data["is_train"] = data["is_train"].tolist()
 
-        joint_data = data.join(poly_data, on=data.index)
+        return poly_data
 
-        return joint_data
+    # def pickup_mean_encoding(self, data):
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
