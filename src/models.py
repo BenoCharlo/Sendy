@@ -154,12 +154,18 @@ class CatBoost_Model:
             logging_level="Silent",
         )
 
+        if aliases.order_index[0] in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         bst.fit(
             data, target, plot=False,
         )
         return bst
 
     def train_catboost_cv(self, data, target, params, nb_fold):
+        if aliases.order_index[0] in list(data.columns):
+            data.drop(aliases.order_index, axis=1, inplace=True)
+
         cv_data = cv(Pool(data, target), params, fold_count=nb_fold, plot=False)
         return cv_data
 
