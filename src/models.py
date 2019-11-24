@@ -12,20 +12,6 @@ import xgboost as xgb
 import lightgbm as lgb
 from catboost import CatBoostRegressor, Pool, cv
 
-from skopt import BayesSearchCV
-from skopt import gp_minimize  # Bayesian optimization using Gaussian Processes
-from skopt.space import Real, Categorical, Integer
-from skopt.utils import (
-    use_named_args,
-)  # decorator to convert a list of parameters to named arguments
-from skopt.callbacks import (
-    DeadlineStopper,
-)  # Stop the optimization before running out of a fixed budget of time.
-from skopt.callbacks import VerboseCallback  # Callback to control the verbosity
-from skopt.callbacks import (
-    DeltaXStopper,
-)  # Stop the optimization If the last two positions at which the objective has been evaluated are less than delta
-
 from src import aliases
 
 
