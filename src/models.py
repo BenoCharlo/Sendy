@@ -1,11 +1,30 @@
 import numpy as np
 import pandas as pd
+from time import time
+import pprint
+import joblib
+
 from sklearn.model_selection import KFold
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error
+
 import xgboost as xgb
 import lightgbm as lgb
 from catboost import CatBoostRegressor, Pool, cv
+
+from skopt import BayesSearchCV
+from skopt import gp_minimize  # Bayesian optimization using Gaussian Processes
+from skopt.space import Real, Categorical, Integer
+from skopt.utils import (
+    use_named_args,
+)  # decorator to convert a list of parameters to named arguments
+from skopt.callbacks import (
+    DeadlineStopper,
+)  # Stop the optimization before running out of a fixed budget of time.
+from skopt.callbacks import VerboseCallback  # Callback to control the verbosity
+from skopt.callbacks import (
+    DeltaXStopper,
+)  # Stop the optimization If the last two positions at which the objective has been evaluated are less than delta
 
 from src import aliases
 
@@ -172,3 +191,39 @@ class CatBoost_Model:
     def predict_catboost(self, bst, data):
         return bst.predict(data)
 
+
+def report_perf(optimizer, data, target, title, callbacks=None):
+    """
+    A wrapper for measuring time and performances of different optmizers
+    
+    optimizer = a sklearn or a skopt optimizer
+    data = the training set 
+    target = our target
+    title = a string label for the experiment
+    """
+    start = time()
+    if callbacks:
+        optimizer.fit(data, target, callback=callbacks)
+    else:
+        optimizer.fit(data, target)
+    best_score = optimizer.best_score_
+    best_score_std = optimizer.cv_results_["std_test_score"][optimizer.best_index_]
+    best_params = optimizer.best_params_
+    print(
+        (
+            title
+            + " took %.2f seconds,  candidates checked: %d, best CV score: %.3f "
+            + u"\u00B1"
+            + " %.3f"
+        )
+        % (
+            time() - start,
+            len(optimizer.cv_results_["params"]),
+            best_score,
+            best_score_std,
+        )
+    )
+    print("Best parameters:")
+    pprint.pprint(best_params)
+    print()
+    return best_params
