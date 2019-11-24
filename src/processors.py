@@ -155,7 +155,20 @@ class Preprocessor:
 
         return poly_data
 
-    # def pickup_mean_encoding(self, data):
+    def hour_mean_encoding(self, data, target, var):
+
+        encoding_data = pd.concat([data[var], target], axis=1)
+        encoding_data.columns = [var, var + "_mean_encod"]
+        encoding_data = encoding_data.groupby(var).mean()
+
+        return encoding_data
+
+    def apply_mean_encoding(self, data_test, data, target):
+
+        encoded = self.hour_mean_encoding(data, target, var)
+        data_test = data_test.join(encoded, on=var)
+
+        return data_test
 
     def separate_train_test(self, data):
         assert "is_train" in list(data.columns)
