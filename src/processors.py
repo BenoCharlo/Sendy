@@ -165,8 +165,9 @@ class Preprocessor:
 
     def apply_mean_encoding(self, data_test, data, target):
 
-        encoded = self.hour_mean_encoding(data, target, var)
-        data_test = data_test.join(encoded, on=var)
+        for var in aliases.mean_encoded:
+            encoded = self.hour_mean_encoding(data, target, var)
+            data_test = data_test.join(encoded, on=var)
 
         return data_test
 
