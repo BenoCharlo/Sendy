@@ -39,3 +39,5 @@ to_categorical = [
 ]
 
 order_index = ["Order No"]
+
+mean_encoded = ["hour_Pickup ", "hour Placement "]
